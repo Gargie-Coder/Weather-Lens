@@ -1,21 +1,23 @@
 import React from 'react'
-import {useState} from 'react'
-import {useEffect} from 'react'
+import {useState,useEffect} from 'react'
 import './App.css'
 import WeatherCard from './components/WeatherCard'
 import WeatherChart from './components/WeatherChart'
+import WeatherFlipCard from './components/WeatherFlipCard'
 
  const App = () => {
-  useEffect(() => {
-    console.log("App component mounted");
-    // Fetch weather data from API and update state
-  }, [])
-
   const [city,setCity] = useState("")
   const [temperature,setTemperature] = useState(0)
   const [condition,setCondition] = useState("")
   const [forecasttemp,setForecasttemp] = useState([])
   const [forecaselabels,setForecastlabels] = useState([]) 
+  const [humidity,setHumidity] = useState(0)
+  const [windSpeed,setWindSpeed] = useState(0)
+  const [pressure,setPressure] = useState(0)
+  useEffect(() => {
+    console.log("App component mounted");
+    // Fetch weather data from API and update state
+  }, [])
  const getWeather = async () => {
   if(!city){alert("Please enter a city name");return;}
   try {
@@ -30,7 +32,9 @@ import WeatherChart from './components/WeatherChart'
     }
     setTemperature(data.main.temp);
     setCondition(data.weather[0].description);
-  
+    setHumidity(data.main.humidity);
+    setWindSpeed(data.wind.speed);
+    setPressure(data.main.pressure);
   } catch (error) {
     console.log(error);
   }
@@ -51,6 +55,18 @@ const getforecast = async () => {
     console.log(error);
   }
 }
+ const getSuggestion = () => {
+  if (temperature > 35)
+    return "Stay hydrated 💧";
+
+  if (temperature < 10)
+    return "Wear a jacket 🧥";
+
+  if (condition.includes("rain"))
+    return "Carry an umbrella ☂️";
+
+  return "Weather looks pleasant today";
+}
   
 const handleSearch = () => {
   getWeather();
@@ -65,8 +81,17 @@ const handleSearch = () => {
     }} />
     <button onClick={handleSearch}>Search</button>
   
-    <WeatherCard city={city} temperature={temperature} condition={condition} />
-    <WeatherChart temperatures={forecasttemp} labels={forecaselabels} />
+   <WeatherFlipCard
+  city={city}
+  temperature={temperature}
+  condition={condition}
+  suggestion={getSuggestion()}
+  forecasttemp={forecasttemp}
+  forecaselabels={forecaselabels}
+  humidity={humidity}
+  windSpeed={windSpeed}
+  pressure={pressure}
+/>
    </div>
    
   )
