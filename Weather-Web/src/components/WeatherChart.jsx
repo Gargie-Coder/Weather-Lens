@@ -12,16 +12,22 @@ const WeatherChart = ({ temperatures, labels }) => {
       {
         label: 'Temperature (°C)',
         data: data,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgb(75, 182, 192)',
+        backgroundColor: 'rgba(222, 231, 231, 0.2)',
       }
     ]
   };
 
   return (
-    <div>
-      <Line data={chartData} />
-    </div>
+   <div style={{ width: "100%", height: "250px" }}>
+  <Line
+    data={chartData}
+    options={{
+      responsive: true,
+      maintainAspectRatio: false,
+    }}
+  />
+</div>
   )
 }
 

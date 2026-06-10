@@ -3,12 +3,32 @@ body {
   font-family: Arial, sans-serif;
   background: #2048a3;
   color: white;
+  background:black;
+  min-height: 100vh;
 }
 
 .app {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  min-height:800px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out;
+}
+.app {
+  position: relative;
+}
+
+.app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+
+.app > * {
+  position: relative;
+  z-index: 1;
 }
 
 h1 {
