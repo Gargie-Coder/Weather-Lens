@@ -1,4 +1,4 @@
-# 🌤️ Weather Flip Card App
+# 🌤️ Weather Lens
 
 An interactive weather application built with **React** that displays real-time weather information and forecasts using the **OpenWeatherMap API**.
 
