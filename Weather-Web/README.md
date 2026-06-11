@@ -1,16 +1,74 @@
-# React + Vite
+# 🌤️ Weather Flip Card App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive weather application built with **React** that displays real-time weather information and forecasts using the **OpenWeatherMap API**.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🔍 Search weather by city name
+- 📍 Detect and fetch weather for the user's current location using Geolocation
+- 🌡️ Display current temperature and weather conditions
+- 🪪 Interactive **flip card** interface
+  - **Front:** Weather summary, icon, quick stats, and suggestions
+  - **Back:** Humidity, wind speed, pressure, and forecast chart
+- 📈 Visualize forecast temperatures with **Chart.js**
+- 🎨 Dynamic themes based on weather conditions
+- ⌨️ Search via button click or **Enter** key
+- 📱 Responsive UI with glassmorphism-inspired styling
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript (ES6)
+- Vite
+- CSS3
+- Chart.js (`react-chartjs-2`)
+- OpenWeatherMap API
+- Browser Geolocation API
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/weather-flip-card.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the project root:
+
+   ```env
+   VITE_WEATHER_API_KEY=your_openweathermap_api_key
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+## 📚 What I Learned
+
+- Managing state with React hooks (`useState`, `useEffect`)
+- Fetching and processing asynchronous API data
+- Passing data between components using props
+- Building reusable UI components
+- Creating flip-card animations with CSS
+- Visualizing data with Chart.js
+- Using the Browser Geolocation API to access the user's current location
+- Applying conditional styling based on weather conditions
+
+## 🔮 Future Improvements
+
+- 7-day forecast
+- Air quality and UV index
+- Temperature unit toggle (°C/°F)
+- Search history and favorite locations
+- Electron desktop packaging
+- Progressive Web App (PWA) support
+
+---
+
+Built to explore React, API integration, data visualization, and modern UI design through a practical weather application.
