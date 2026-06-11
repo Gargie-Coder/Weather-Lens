@@ -24,7 +24,7 @@ ChartJS.register(
 );
 
 const WeatherChart = ({ temperatures, labels }) => {
-  // ── Show only every 3rd entry = 8 points (every 9 hours) ──────
+  // --- Show only every 3rd entry = 8 points (every 9 hours) ──────
   const step = 3;
   const slicedTemps  = temperatures.filter((_, i) => i % step === 0).slice(0, 8);
   const slicedLabels = labels.filter((_, i) => i % step === 0).slice(0, 8);
