@@ -3,14 +3,12 @@
 =========================== */
 
 .CardContainer {
-  perspective: 1000px;
-  width: 500px;
-  margin: 40px auto;
+  perspective: 1400px;
+  width: min(100%, 540px);
+  margin: 0 auto;
 }
 
 .CardContainer:hover {
-  transform: translateY(-5px);
-  transition: transform 0.2s ease;
   cursor: pointer;
 }
 
@@ -21,9 +19,11 @@
 .card {
   position: relative;
   width: 100%;
-  min-height: 580px;
+  min-height: 650px;
   transform-style: preserve-3d;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+  border-radius: 28px;
+  box-shadow: 0 35px 90px rgba(4, 18, 45, 0.35);
 }
 
 .card.flipped {
@@ -38,22 +38,17 @@
 .back {
   position: absolute;
   inset: 0;
-
   display: flex;
+  width: 100%;
+  min-height: 650px;
   flex-direction: column;
   align-items: center;
-
-  padding: 30px;
-  border-radius: 24px;
-
+  padding: 34px;
+  border-radius: 28px;
   color: white;
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(18px);
-  background: rgba(255, 255, 255, 0.12);
-
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(20px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -64,8 +59,21 @@
 
 .front {
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
   text-align: center;
+}
+
+.front h2,
+.back h2 {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.front .temperature {
+  margin: 0;
 }
 
 /* ===========================
@@ -75,14 +83,34 @@
 .back {
   transform: rotateY(180deg);
   justify-content: flex-start;
-  overflow-y: auto;
+  overflow: hidden;
+  gap: 18px;
+}
+
+.backDetails {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+  margin-top: 12px;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
 }
 
 .back canvas {
   width: 100% !important;
-  max-height: 240px !important;
-  margin-top: 12px;
+  max-height: 280px !important;
+  margin-top: 14px;
+  border-radius: 18px;
 }
 
 /* ===========================
@@ -91,32 +119,34 @@
 
 .front.clear,
 .back.clear {
-  background: linear-gradient(135deg, #4facfe, #00c6fb);
+  background: linear-gradient(135deg, rgba(72, 197, 255, 0.92), rgba(61, 157, 255, 0.96));
 }
 
 .front.clouds,
 .back.clouds {
-  background: linear-gradient(135deg, #8e9eab, #cfd9df);
+  background: linear-gradient(135deg, rgba(132, 150, 170, 0.95), rgba(206, 217, 228, 0.97));
+  color: #102030;
 }
 
 .front.rain,
 .back.rain {
-  background: linear-gradient(135deg, #4b79a1, #283e51);
+  background: linear-gradient(135deg, rgba(59, 91, 146, 0.96), rgba(33, 57, 85, 0.97));
 }
 
 .front.thunder,
 .back.thunder {
-  background: linear-gradient(135deg, #232526, #414345);
+  background: linear-gradient(135deg, rgba(42, 49, 82, 0.96), rgba(26, 29, 42, 0.98));
 }
 
 .front.snow,
 .back.snow {
-  background: linear-gradient(135deg, #dbe6f6, #c5796d);
+  background: linear-gradient(135deg, rgba(236, 245, 252, 0.96), rgba(176, 204, 231, 0.98));
+  color: #102030;
 }
 
 .front.default,
 .back.default {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, rgba(103, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
 }
 
 /* ===========================
@@ -124,22 +154,19 @@
 =========================== */
 
 .weatherIcon {
-  width: 130px;
-  height: 130px;
-  animation: float 3s ease-in-out infinite;
+  width: 140px;
+  height: 140px;
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.24));
+  animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-
+  0%,
   100% {
     transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 
@@ -147,75 +174,169 @@
    Typography
 =========================== */
 
+.front,
+.back {
+  color: inherit;
+}
+
+.front.clear,
+.back.clear,
+.front.rain,
+.back.rain,
+.front.thunder,
+.back.thunder,
+.front.default,
+.back.default {
+  color: #f8fafc;
+}
+
+.front.clouds,
+.back.clouds,
+.front.snow,
+.back.snow {
+  color: #0f172a;
+}
+
+.title,
+.temperature,
+.city,
+.today,
+.condition,
+.suggestion,
+.detail,
+.quickStats div,
+.hint {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.temperature {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.25);
+}
+
+.suggestion {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.front.clouds .suggestion,
+.back.clouds .suggestion,
+.front.snow .suggestion,
+.back.snow .suggestion {
+  background: rgba(15, 23, 42, 0.08);
+  border-color: rgba(15, 23, 42, 0.12);
+}
+
+.detail {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.front.clouds .detail,
+.back.clouds .detail,
+.front.snow .detail,
+.back.snow .detail {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.quickStats div {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.front.clouds .quickStats div,
+.back.clouds .quickStats div,
+.front.snow .quickStats div,
+.back.snow .quickStats div {
+  background: rgba(226, 232, 240, 0.9);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
 .title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   opacity: 0.8;
   margin: 0;
 }
 
 .temperature {
-  font-size: 4.2rem;
-  font-weight: 800;
-  line-height: 1;
+  font-size: clamp(3.8rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
   margin: 0;
 }
 
 .city {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+}
+
+.today,
+.condition {
+  font-size: 1rem;
+  opacity: 0.92;
   margin: 0;
 }
 
 .condition {
-  font-size: 1.25rem;
   text-transform: capitalize;
-  opacity: 0.95;
-  margin: 0;
 }
 
 .suggestion {
-  margin-top: 8px;
-  padding: 10px 18px;
-  border-radius: 14px;
+  padding: 14px 20px;
   background: rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  width: min(100%, 90%);
   text-align: center;
-  max-width: 85%;
-  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quickStats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.quickStats div {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 120px;
+  font-weight: 600;
 }
 
 .hint {
   margin-top: auto;
-  opacity: 0.65;
   font-size: 0.9rem;
+  opacity: 0.78;
 }
 
-/* ===========================
-   Back Details
-=========================== */
+@media (max-width: 560px) {
+  .CardContainer {
+    width: 100%;
+  }
 
-.detail {
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  .card {
+    min-height: 720px;
+  }
 
-  padding: 12px 16px;
+  .front,
+  .back {
+    padding: 24px;
+  }
 
-  border-radius: 12px;
+  .weatherIcon {
+    width: 120px;
+    height: 120px;
+  }
 
-  background: rgba(255, 255, 255, 0.12);
-
-  font-size: 1rem;
-}
-
-/* ===========================
-   Optional Quick Stats
-=========================== */
-
-.quickStats {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 10px;
-  font-size: 1rem;
+  .backDetails {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,28 +1,76 @@
+:root {
+  color-scheme: dark;
+  --bg: #070b16;
+  --panel: rgba(13, 22, 51, 0.85);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --text: #f7f9ff;
+  --muted: #c3d2ff;
+  --accent: #7dd3fc;
+  --accent-strong: #38bdf8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #2048a3;
-  color: white;
-  background:black;
+  min-height: 100%;
+  background: radial-gradient(circle at top, rgba(93, 156, 255, 0.15), transparent 35%),
+    linear-gradient(180deg, #020617 0%, #061028 45%, #090f1f 100%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
   min-height: 100vh;
 }
 
 .app {
-  min-height:800px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.5s ease-in-out;
-}
-.app {
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 20px 60px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0b1a3a 15%, #0c2b54 45%, #0d3e7a 100%);
+}
+
+.app.clear {
+  background: linear-gradient(135deg, #80d0ff 10%, #3b82f6 45%, #0f172a 100%);
+}
+
+.app.clouds {
+  background: linear-gradient(135deg, #b0bec5 10%, #6b7280 45%, #374151 100%);
+}
+
+.app.rain {
+  background: linear-gradient(135deg, #0f172a 10%, #1e3a8a 45%, #2563eb 100%);
+}
+
+.app.snow {
+  background: linear-gradient(135deg, #f8fafc 10%, #cbd5e1 45%, #93c5fd 100%);
+  color: #102030;
+}
+
+.app.thunder {
+  background: linear-gradient(135deg, #0b1120 10%, #182d47 45%, #3b425e 100%);
+}
+
+.app.default {
+  background: linear-gradient(135deg, #4338ca 10%, #8b5cf6 45%, #c084fc 100%);
 }
 
 .app::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(2, 8, 22, 0.35);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
   z-index: 0;
 }
 
@@ -31,27 +79,150 @@ body {
   z-index: 1;
 }
 
-h1 {
+.appTitle {
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-align: center;
+  margin-bottom: 10px;
+  color: #eef4ff;
 }
 
-.weather-card {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 12px;
+.subtitle {
+  max-width: 640px;
+  text-align: center;
+  color: var(--muted);
+  opacity: 0.95;
   margin-bottom: 30px;
-  text-align: center;
+  line-height: 1.6;
 }
 
-.details {
+.searchBar {
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: center;
-  gap: 20px;
+  width: min(100%, 640px);
+  margin-bottom: 36px;
 }
 
-.chart-container {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+.searchBar input {
+  flex: 1;
+  min-width: 220px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.searchBar input:focus {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(118, 189, 255, 0.6);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+}
+
+.searchBar button {
+  padding: 16px 24px;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #071c37;
+  background: linear-gradient(135deg, #67e8f9, #3b82f6);
+  box-shadow: 0 14px 30px rgba(3, 26, 49, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.searchBar button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px rgba(3, 26, 49, 0.26);
+}
+
+.app.clear .searchBar input,
+.app.clear .searchBar button {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.app.clear .searchBar input {
+  background: rgba(255, 255, 255, 0.18);
+  color: #102030;
+}
+
+.app.clear .searchBar button {
+  background: linear-gradient(135deg, #bae6fd, #60a5fa);
+  color: #0f172a;
+}
+
+.app.clouds .searchBar input,
+.app.clouds .searchBar button {
+  border-color: rgba(15, 23, 42, 0.16);
+}
+
+.app.clouds .searchBar input {
+  background: rgba(248, 250, 252, 0.9);
+  color: #102030;
+}
+
+.app.clouds .searchBar button {
+  background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+  color: #102030;
+}
+
+.app.rain .searchBar input {
+  background: rgba(15, 23, 42, 0.88);
+  color: #f8fafc;
+}
+
+.app.rain .searchBar button {
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  color: #f8fafc;
+}
+
+.app.snow .searchBar input {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.app.snow .searchBar button {
+  background: linear-gradient(135deg, #93c5fd, #e2e8f0);
+  color: #0f172a;
+}
+
+.app.thunder .searchBar input {
+  background: rgba(15, 23, 42, 0.88);
+  color: #f8fafc;
+}
+
+.app.thunder .searchBar button {
+  background: linear-gradient(135deg, #4f46e5, #1d4ed8);
+  color: #f8fafc;
+}
+
+.app.default .searchBar input {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+}
+
+.app.default .searchBar button {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: #f8fafc;
+}
+
+@media (max-width: 560px) {
+  .app {
+    padding-top: 32px;
+  }
+
+  .searchBar input,
+  .searchBar button {
+    width: 100%;
+  }
 }

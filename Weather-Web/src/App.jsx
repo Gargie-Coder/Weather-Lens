@@ -1,14 +1,7 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
 import './App.css'
-import WeatherCard from './components/WeatherCard'
-import WeatherChart from './components/WeatherChart'
 import WeatherFlipCard from './components/WeatherFlipCard'
-import clearBg from "./assets/sunnyday.jpg"
-import cloudsBg from "./assets/cloud.jpg"
-import rainBg from "./assets/Rain.jpg"
-import snowBg from "./assets/snow.jpg"
-import thunderBg from "./assets/thunder.jpg"
 
  const App = () => {
   const [city,setCity] = useState("")
@@ -82,32 +75,45 @@ const getforecast = async () => {
   return "Weather looks pleasant today";
 }
 
-const getBackgroundImage = () => {
+const getBackgroundClass = () => {
   const c = condition.toLowerCase();
 
-  if (c.includes("clear")) return clearBg;
-  if (c.includes("cloud")) return cloudsBg;
-  if (c.includes("rain")) return rainBg;
-  if (c.includes("snow")) return snowBg;
-  if (c.includes("thunder")) return thunderBg;
+  if (c.includes("clear")) return "clear";
+  if (c.includes("cloud")) return "clouds";
+  if (c.includes("rain")) return "rain";
+  if (c.includes("snow")) return "snow";
+  if (c.includes("thunder")) return "thunder";
 
-  return clearBg;
+  return "default";
 };
   
 const handleSearch = () => {
   getWeather();
   getforecast();
 }
+  const appClass = `app ${getBackgroundClass()}`;
+
   return (
-   <div className="app"  style={{
-    backgroundImage: `url(${getBackgroundImage()})`,
-  }}>
-    <h1>Weather App</h1>
-    <input type="text" placeholder="Enter city name" onChange={(e)=>setCity(e.target.value)} onKeyDown={(e)=>{
-      if(e.key==="Enter"){handleSearch();
-      }
-    }} />
-    <button onClick={handleSearch}>Search</button>
+   <div className={appClass}>
+    <h1 className="appTitle">🌤 Weather Lens</h1>
+    <p className="subtitle">
+      Search any city and flip the card for detailed insights.
+    </p>
+
+    <div className="searchBar">
+      <input
+        type="text"
+        placeholder="Enter city..."
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSearch();
+        }}
+        autoComplete="off"
+      />
+
+      <button onClick={handleSearch}>Search</button>
+    </div>
   
    <WeatherFlipCard
   city={city}
